@@ -40,7 +40,7 @@ class Solver(object):
         if self.config.mode == 'train':
             # Build Optimizers
             self.s_e_optimizer = optim.Adam(
-                list(self.summarizer.s_lstm.parameters())
+                list(self.summarizer.fcsn.parameters())
                 + list(self.summarizer.auto_enc.e_lstm.parameters())
                 + list(self.linear_compress.parameters()),
                 lr=self.config.lr)
@@ -224,7 +224,7 @@ class Solver(object):
 
             # [seq_len]
             with torch.no_grad():
-                scores = self.summarizer.s_lstm(video_feature).squeeze(1)
+                scores = self.summarizer.fcsn(video_feature).squeeze(1)
                 scores = scores.cpu().numpy().tolist() 
 
                 out_dict[video_name] = scores
