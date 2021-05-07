@@ -295,7 +295,7 @@ class AE(nn.Module):
 class Summarizer(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers=2):
         super().__init__()
-        self.fcsn = FCSN(input_size, hidden_size, num_layers)
+        self.fcsn = FCSN()
         self.auto_enc = AE(input_size, hidden_size, num_layers)
 
     def forward(self, image_features):
