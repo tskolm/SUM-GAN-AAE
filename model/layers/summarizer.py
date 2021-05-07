@@ -94,6 +94,7 @@ class FCSN(nn.Module):
 
         self.deconv1 = nn.ConvTranspose1d(n_class, n_class, 4, padding=1, stride=2, bias=False)
         self.deconv2 = nn.ConvTranspose1d(n_class, n_class, 16, stride=16, bias=False)
+        self.sigm = nn.Sigmoid()
 
     def forward(self, x):
 
@@ -118,7 +119,7 @@ class FCSN(nn.Module):
 
         h = upscore2 + score_pool4
 
-        h = self.deconv2(h)
+        h = self.sigm(self.deconv2(h))
 
         return h
 
